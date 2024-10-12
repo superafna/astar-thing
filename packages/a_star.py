@@ -2,7 +2,10 @@ import heapq
 import numpy as np
 
 from dataclasses import dataclass, field
+from itertools import count
 
+# a global
+TIEBREAKER = count()
 
 @dataclass
 class Cell:
@@ -88,7 +91,7 @@ def a_star_search(grid:np.ndarray, src:np.ndarray, dest:np.ndarray):
 
     # Initialize the open list (cells to be visited) with the start cell
     open_list = []
-    heapq.heappush(open_list, (0.0, src))
+    heapq.heappush(open_list, (0.0, 0, src))
 
     # Initialize the flag for whether destination is found
     found_dest = False
@@ -99,7 +102,7 @@ def a_star_search(grid:np.ndarray, src:np.ndarray, dest:np.ndarray):
         p = heapq.heappop(open_list)
 
         # Mark the cell as visited
-        src = p[1]
+        src = p[2]
         closed_list[tuple(src)] = True
 
         # For each direction, check the successors
@@ -131,7 +134,7 @@ def a_star_search(grid:np.ndarray, src:np.ndarray, dest:np.ndarray):
                     # If the cell is not in the open list or the new f value is smaller
                     if cell_details[tuple(new_src)].f == float('inf') or cell_details[tuple(new_src)].f > f_new:
                         # Add the cell to the open list
-                        heapq.heappush(open_list, (f_new, new_src))
+                        heapq.heappush(open_list, (f_new, next(TIEBREAKER), new_src))
                         # Update the cell details
                         cell_details[tuple(new_src)].f = f_new
                         cell_details[tuple(new_src)].g = g_new
