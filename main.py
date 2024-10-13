@@ -4,6 +4,9 @@ from packages.grid_gen import grid_gen, point_gen
 
 
 def test_random():
+    """
+    Randomly generate the parameters, and run a_star_search
+    """
     grid = grid_gen()
 
     # Define the source and destination
@@ -17,6 +20,9 @@ def test_random():
 
 
 def test_fixed():
+    """
+    fixed test to check for strange behavior.
+    """
     grid = np.stack([
         [1, 0, 1, 1, 1, 1, 0, 1, 1, 1],
         [1, 1, 1, 0, 1, 1, 1, 0, 1, 1],
