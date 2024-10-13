@@ -7,9 +7,9 @@ def grid_gen(row=randint(4, 40), col=randint(4, 40)) -> np.ndarray:
     return grid
 
 
-def point_gen(grid:np.ndarray) -> np.ndarray:
+def point_gen(grid:np.ndarray) -> tuple:
     shape = grid.shape
     row = shape[0]
     col = shape[1]
 
-    return np.array((randint(0, row-1), randint(0, col-1)))
+    return randint(0, row-1), randint(0, col-1)
