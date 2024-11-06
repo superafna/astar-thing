@@ -158,7 +158,7 @@ def a_star_search(grid:np.ndarray, src:tuple[int, int], dest:tuple[int, int]) ->
                     # Trace and print the path from source to destination
                     trace_path(cell_details, dest)
                     found_dest = True
-                    return
+                    break
                 else:
                     # Calculate the new f, g, and h values
                     g_new = cell_details[src].cost_g + 1.0
