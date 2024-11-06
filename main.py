@@ -1,29 +1,10 @@
 import numpy as np
 from packages.a_star import a_star_search
-from packages.grid_gen import grid_gen, point_gen, true_point_gen
 
 
-def test_random():
+def test():
     """
-    Randomly generate the parameters, and run a_star_search
-    """
-    grid = grid_gen()
-
-    # Define the source and destination
-    # src = point_gen(grid)
-    # dest = point_gen(grid)
-    src = true_point_gen()
-    dest = true_point_gen()
-
-    print(src, dest)
-
-    # Run the A* search algorithm
-    a_star_search(grid, src, dest)
-
-
-def test_fixed():
-    """
-    fixed test to check for strange behavior.
+    fixed test.
     """
     grid = np.stack([
         [1, 0, 1, 1, 1, 1, 0, 1, 1, 1],
@@ -47,12 +28,24 @@ def test_fixed():
 
 def main():
     for _ in range(100):
-        test_random()
+        test()
 
 
 if __name__ == "__main__":
     main()
 
 """
-based on code from https://www.geeksforgeeks.org/a-search-algorithm-in-python/
+V datoteki a_star.py je pythonovska implementacija algoritma A*, z uporabo knjižnjice numpy.
+Vasa naloga je, da poskrbite da funkcija a_star_search() deluje brez napak, ali pa vsaj čim vec napak odpravite.
+Funkcija a_star_search() sprejme tabelo kot dvo-dimenzionalni numpy array, in dve tocki kot tupla intov.
+(lahko tudi od zacetka napisete novo kodo za implementacijo A*, ampak morate uporabiti tudi numpy, 
+sicer je prelahko vse skopirati s spleta :p)
+
+Komentarji opisujejo delovanje brez napak, torej ce gre kaj v kljub njim, je verjetno napaka.
+Funkcije v a_star.py imajo lahko eno po napako, ali pa sploh nobene.
+Ena napaka lahko obsega eno ali več zaporednih vrstic.
+Dovoljena je prosta uporaba kakršnihkoli orodij, spletni brskalnik ipd. (tudi chatGPT, ampak tega sicer ne bi predlagal)
+dataclass Cell je pravilen, konstanta DIRECTIONS tudi.
+
+Vso srečo!
 """
