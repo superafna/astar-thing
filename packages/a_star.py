@@ -73,7 +73,6 @@ def trace_path(cell_details:np.ndarray, dest:tuple[int, int]) -> None:
     while not (cell_details[coordinates].parent[0] == coordinates[0] and cell_details[coordinates].parent[1] == coordinates[1]):
         # Loop until the cell has itself as it's parent, marking the source cell.
         # append the current cell to the path, then move on to the next parent.
-
         path.append(coordinates)
         temp_node = cell_details[coordinates].parent
         coordinates = temp_node
