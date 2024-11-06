@@ -26,8 +26,12 @@ def is_valid(coordinates:tuple[int, int], size:tuple[int, int], ) -> bool:
     :param size: size of grid as a tuple of positive ints.
     :return: the coordinates exist within the grid.
     """
-    return 0 <= coordinates[0] < size[0] and \
-           0 <= coordinates[1] < size[1]
+    return 0 <= coordinates[0] <= size[0] and \
+           0 <= coordinates[1] <= size[1]
+    #   pravilno:
+    #   0 <= coordinates[0] < size[0] and \
+    #   0 <= coordinates[1] < size[1]
+    #   zadeva naobe preveri, ce je tocka znotraj tabele, kar lag=hko povzroci out of range error
 
 
 def is_unblocked(grid:np.ndarray, cell:tuple[int, int]) -> bool:
@@ -47,7 +51,10 @@ def is_destination(src:tuple[int, int], dest:tuple[int, int]) -> bool:
     :param dest: coordinates of the destination as a tuple of positive ints.
     :return: The cells share the same coordinates.
     """
-    return src[0] == dest[0] and src[1] == dest[1]
+    return src[0] == src[1] and dest[0] == dest[1]
+    #   pravilno:
+    #   src[0] == dest[0] and src[1] == dest[1]
+    #   tole je samo nesmiselno. ce najdejo najdejo. :p
 
 
 def calculate_h_value(src:tuple[int, int], dest:tuple[int, int]) -> float:
@@ -78,7 +85,8 @@ def trace_path(cell_details:np.ndarray, dest:tuple[int, int]) -> None:
         coordinates = temp_node
 
     path.append(coordinates)   # Add the source cell to the path
-    path.reverse()  # Reverse the path to get the path from source to destination
+    #   path.reverse()  # Reverse the path to get the path from source to destination
+    #   pot zdaj narobe obrnjena.
 
     # Print the path
     for i in path:
@@ -134,7 +142,9 @@ def a_star_search(grid:np.ndarray, src:tuple[int, int], dest:tuple[int, int]) ->
     found_dest = False
 
     # Main loop of A* search algorithm
-    while len(open_list) > 0:
+    while len(open_list) >= 0:
+        #   pravilno:
+        #   len(open_list) >= 0, zdaj poskusi delati z zadevo, ko nima vec tock.
         # Pop the cell with the smallest f value from the open list
         p = heapq.heappop(open_list)
 
@@ -143,9 +153,9 @@ def a_star_search(grid:np.ndarray, src:tuple[int, int], dest:tuple[int, int]) ->
         closed_list[src] = True
 
         # For each direction, check the successors
-        for dirs in DIRECTIONS:
+        for direction in DIRECTIONS:
             # Calculate the successor using the current direction
-            new_src = src[0] + dirs[0], src[1] + dirs[1]
+            new_src = src[0] + direction[0], src[1] + direction[1]
 
             # If the successor is valid, unblocked, and not visited
             if is_valid(new_src, size) and is_unblocked(grid, new_src) and not closed_list[new_src]:
@@ -158,7 +168,7 @@ def a_star_search(grid:np.ndarray, src:tuple[int, int], dest:tuple[int, int]) ->
                     # Trace and print the path from source to destination
                     trace_path(cell_details, dest)
                     found_dest = True
-                    return
+                    break
                 else:
                     # Calculate the new f, g, and h values
                     g_new = cell_details[src].cost_g + 1.0

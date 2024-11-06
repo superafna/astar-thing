@@ -2,7 +2,7 @@ import numpy as np
 from random import randint
 
 
-def grid_gen(row=randint(4, 40), col=randint(4, 40)) -> np.ndarray:
+def grid_gen(row=randint(50, 100), col=randint(50, 100)) -> np.ndarray:
     """
     Generate a two-dimensional numpy array of the specified size, filled randomly with 1's and 0's.
     Parameters are random, if not specified.
@@ -25,3 +25,12 @@ def point_gen(grid:np.ndarray) -> tuple[int, int]:
     col = shape[1]
 
     return randint(0, row-1), randint(0, col-1)
+
+
+def true_point_gen() -> tuple[int, int]:
+    """
+    Randomly generate a point with 2 coordinates.
+    :return: coordinates as tuple of ints between 0 and 99.
+    """
+
+    return randint(0, 99), randint(0, 99)

@@ -1,6 +1,6 @@
 import numpy as np
 from packages.a_star import a_star_search
-from packages.grid_gen import grid_gen, point_gen
+from packages.grid_gen import grid_gen, point_gen, true_point_gen
 
 
 def test_random():
@@ -10,8 +10,10 @@ def test_random():
     grid = grid_gen()
 
     # Define the source and destination
-    src = point_gen(grid)
-    dest = point_gen(grid)
+    # src = point_gen(grid)
+    # dest = point_gen(grid)
+    src = true_point_gen()
+    dest = true_point_gen()
 
     print(src, dest)
 
